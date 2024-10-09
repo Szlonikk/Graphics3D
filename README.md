@@ -1,5 +1,5 @@
 # Jakub Bednarz - grupa środa 12:00
-
+# Przemysław Kubik - grupa środa 12:00
 
 
 # A 3D graphics programming project.
