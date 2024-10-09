@@ -1,3 +1,7 @@
+#Jakub Bednarz - grupa środa 12:00
+
+
+
 # A 3D graphics programming project.
 
 This repository contains the "Hello World!" equivalent for OpenGL C++ programming. This will be the starting point for
