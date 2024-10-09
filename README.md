@@ -1,4 +1,4 @@
-#Jakub Bednarz - grupa środa 12:00
+# Jakub Bednarz - grupa środa 12:00
 
 
 
