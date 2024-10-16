@@ -35,15 +35,15 @@ void SimpleShapeApplication::init() {
 
     // A vector containing the x,y,z vertex coordinates for the triangle.
     std::vector<GLfloat> vertices = {
-            -0.5f, 0.0f, 0.0f,
-            0.5f, 0.0f, 0.0f,
-            0.0f, 0.5f, 0.0f,
-            -0.5f, 0.0f, 0.0f, // second triangle
-            -0.5f, -0.5f, 0.0f,
-            0.5f, -0.5f, 0.0f,
-            0.5f, 0.0f, 0.0f, // third triangle
-            -0.5f, 0.0f, 0.0f,
-            0.5f, -0.5f, 0.0f};
+            -0.5f, 0.0f, 0.0f, 0.0f,1.0f,0.0f,
+            0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+            0.0f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
+            -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,// second triangle
+            -0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
+            0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
+            0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,// third triangle
+            -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+            0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f};
 
     /*
      * All the calls to the OpenGL API are "encapsulated" in the OGL_CALL macro for debugging purposes as explained in
@@ -73,7 +73,7 @@ void SimpleShapeApplication::init() {
     // This specifies that the data for attribute 0 should be read from a vertex buffer
     OGL_CALL(glEnableVertexAttribArray(0));
     // and this specifies the data layout in the buffer.
-    OGL_CALL(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat),
+    OGL_CALL(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat),
                                    reinterpret_cast<GLvoid *>(0)));
 
     OGL_CALL(glBindBuffer(GL_ARRAY_BUFFER, 0));
