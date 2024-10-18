@@ -72,9 +72,14 @@ void SimpleShapeApplication::init() {
      */
     // This specifies that the data for attribute 0 should be read from a vertex buffer
     OGL_CALL(glEnableVertexAttribArray(0));
-    // and this specifies the data layout in the buffer.
     OGL_CALL(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat),
                                    reinterpret_cast<GLvoid *>(0)));
+
+    OGL_CALL(glEnableVertexAttribArray(1));
+    OGL_CALL(glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat),
+                                   reinterpret_cast<GLvoid *>(3*sizeof(GLfloat))));
+
+
 
     OGL_CALL(glBindBuffer(GL_ARRAY_BUFFER, 0));
     OGL_CALL(glBindVertexArray(0));
