@@ -53,19 +53,19 @@ void SimpleShapeApplication::init() {
     GLuint v_buffer_handle;
     OGL_CALL(glCreateBuffers(1, &v_buffer_handle));
     OGL_CALL(glNamedBufferData(v_buffer_handle, vertices.size() * sizeof(GLfloat), vertices.data(), GL_STATIC_DRAW));
-    OGL_CALL(glBindBuffer(GL_ARRAY_BUFFER, v_buffer_handle));
     
     
     GLuint i_buffer_handle;
     OGL_CALL(glCreateBuffers(1, &i_buffer_handle));
     OGL_CALL(glNamedBufferData(i_buffer_handle, indices.size() * sizeof(GLubyte), indices.data(), GL_STATIC_DRAW));
-    OGL_CALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, i_buffer_handle));
 
     
-    
-
     OGL_CALL(glGenVertexArrays(1, &vao_));
+    
+    
     OGL_CALL(glBindVertexArray(vao_));
+    OGL_CALL(glBindBuffer(GL_ARRAY_BUFFER, v_buffer_handle));
+    OGL_CALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, i_buffer_handle));
     
     OGL_CALL(glEnableVertexAttribArray(0));
     OGL_CALL(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat),
