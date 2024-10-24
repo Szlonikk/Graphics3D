@@ -87,7 +87,7 @@ void SimpleShapeApplication::init() {
     OGL_CALL(glClearColor(0.81f, 0.81f, 0.81f, 1.0f));
 // UNIFORMS =================================================================
     float strength = 0.5f;
-    float mix_color[3] = {0.0f, 0.0f, 1.0f}; // Blue color
+    float mix_color[3] = {0.0f, 0.0f, 1.0f}; 
 
     GLuint ubo_handle;
     OGL_CALL(glCreateBuffers(1, &ubo_handle));
@@ -98,7 +98,7 @@ void SimpleShapeApplication::init() {
     OGL_CALL(glNamedBufferSubData(ubo_handle, 0, sizeof(float), &strength)); // strength
     OGL_CALL(glNamedBufferSubData(ubo_handle, 16, 3 * sizeof(float), mix_color)); // mix_color
 
-    // Bind the buffer to the uniform block (binding = 0)
+    // (binding = 0)
     OGL_CALL(glBindBufferBase(GL_UNIFORM_BUFFER, 0, ubo_handle));
 // ==========================================================================
     float theta = 1.0*glm::pi<float>()/6.0f;//30 degrees
@@ -108,18 +108,16 @@ void SimpleShapeApplication::init() {
     glm::vec2 trans{0.0,  -0.25};
     glm::vec2 scale{0.5, 0.5};
 
-    // Create the uniform buffer and allocate memory
     GLuint ubo_transform;
     OGL_CALL(glCreateBuffers(1, &ubo_transform));
-    OGL_CALL(glNamedBufferData(ubo_transform, 64, nullptr, GL_DYNAMIC_DRAW));  // 64 bytes for std140 layout
+    OGL_CALL(glNamedBufferData(ubo_transform, 64, nullptr, GL_DYNAMIC_DRAW));  // 64 bytes for std140
 
-    // Load the data into the buffer
-    OGL_CALL(glNamedBufferSubData(ubo_transform, 0, sizeof(glm::vec2), &scale));  // scale
-    OGL_CALL(glNamedBufferSubData(ubo_transform, 16, sizeof(glm::vec2), &trans));  // translation
-    OGL_CALL(glNamedBufferSubData(ubo_transform, 32, sizeof(glm::vec2), &rot[0]));  // first column of rotation
-    OGL_CALL(glNamedBufferSubData(ubo_transform, 48, sizeof(glm::vec2), &rot[1]));  // second column of rotation
+    OGL_CALL(glNamedBufferSubData(ubo_transform, 0, sizeof(glm::vec2), &scale));
+    OGL_CALL(glNamedBufferSubData(ubo_transform, 16, sizeof(glm::vec2), &trans)); 
+    OGL_CALL(glNamedBufferSubData(ubo_transform, 32, sizeof(glm::vec2), &rot[0]));  
+    OGL_CALL(glNamedBufferSubData(ubo_transform, 48, sizeof(glm::vec2), &rot[1])); 
 
-    // Bind the buffer to the uniform block (binding=1)
+    // (binding = 1)
     OGL_CALL(glBindBufferBase(GL_UNIFORM_BUFFER, 1, ubo_transform));
 
 
