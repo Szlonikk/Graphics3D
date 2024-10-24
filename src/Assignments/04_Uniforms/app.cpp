@@ -13,6 +13,10 @@
 
 #include "Application/utils.h"
 
+#include <glm/glm.hpp>
+#include <glm/gtc/constants.hpp>
+
+
 void SimpleShapeApplication::init() {
     /*
      * A utility function that reads the shaders' source files, compiles them and creates the program object,
@@ -81,7 +85,7 @@ void SimpleShapeApplication::init() {
     OGL_CALL(glBindVertexArray(0));
     
     OGL_CALL(glClearColor(0.81f, 0.81f, 0.81f, 1.0f));
-
+// UNIFORMS =================================================================
     float strength = 0.5f;
     float mix_color[3] = {0.0f, 0.0f, 1.0f}; // Blue color
 
@@ -96,6 +100,27 @@ void SimpleShapeApplication::init() {
 
     // Bind the buffer to the uniform block (binding = 0)
     OGL_CALL(glBindBufferBase(GL_UNIFORM_BUFFER, 0, ubo_handle));
+// ==========================================================================
+    float theta = 1.0*glm::pi<float>()/6.0f;//30 degrees
+    auto cs = std::cos(theta);
+    auto ss = std::sin(theta);  
+    glm::mat2 rot{cs,ss,-ss,cs};
+    glm::vec2 trans{0.0,  -0.25};
+    glm::vec2 scale{0.5, 0.5};
+
+    // Create the uniform buffer and allocate memory
+    GLuint ubo_transform;
+    OGL_CALL(glCreateBuffers(1, &ubo_transform));
+    OGL_CALL(glNamedBufferData(ubo_transform, 64, nullptr, GL_DYNAMIC_DRAW));  // 64 bytes for std140 layout
+
+    // Load the data into the buffer
+    OGL_CALL(glNamedBufferSubData(ubo_transform, 0, sizeof(glm::vec2), &scale));  // scale
+    OGL_CALL(glNamedBufferSubData(ubo_transform, 16, sizeof(glm::vec2), &trans));  // translation
+    OGL_CALL(glNamedBufferSubData(ubo_transform, 32, sizeof(glm::vec2), &rot[0]));  // first column of rotation
+    OGL_CALL(glNamedBufferSubData(ubo_transform, 48, sizeof(glm::vec2), &rot[1]));  // second column of rotation
+
+    // Bind the buffer to the uniform block (binding=1)
+    OGL_CALL(glBindBufferBase(GL_UNIFORM_BUFFER, 1, ubo_transform));
 
 
     auto [w, h] = frame_buffer_size();
